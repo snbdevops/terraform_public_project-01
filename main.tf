@@ -52,3 +52,9 @@ module "route_tables" {
   app_subnets = module.vpc.private_app_subnet_ids
   db_subnets  = module.vpc.private_db_subnet_ids
 }
+
+module "internet_gateway" {
+  source   = "./modules/internet_gateway"
+  vpc_id   = module.vpc.vpc_id
+  route_table_id = module.route_tables.web_route_table_ids
+}
