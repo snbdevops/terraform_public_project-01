@@ -44,3 +44,11 @@ module "vpc" {
 #   source = "./modules/subnets"
 #   vpc_id = module.vpc.vpc_id
 # }
+
+module "route_tables" {
+  source     = "./modules/route_tables"
+  vpc_id     = module.vpc.vpc_id
+  web_subnets = module.vpc.public_subnet_ids
+  app_subnets = module.vpc.private_app_subnet_ids
+  db_subnets  = module.vpc.private_db_subnet_ids
+}
