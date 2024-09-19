@@ -23,9 +23,9 @@ resource "aws_route_table" "db" {
 }
 
 resource "aws_route_table_association" "web" {
-  count          = length(var.web_subnets
+  count = length(var.web_subnets
 
-)
+  )
   subnet_id      = element(var.web_subnets, count.index)
   route_table_id = aws_route_table.web.id
 }

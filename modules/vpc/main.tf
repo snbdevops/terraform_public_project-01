@@ -1,6 +1,6 @@
 resource "aws_vpc" "this" {
-  cidr_block = var.cidr
-  enable_dns_support = true
+  cidr_block           = var.cidr
+  enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
     Name = var.name
@@ -8,10 +8,10 @@ resource "aws_vpc" "this" {
 }
 
 resource "aws_subnet" "public" {
-  count = length(var.public_subnet_cidrs)
-  vpc_id = var.vpc_id
-  cidr_block = element(var.public_subnet_cidrs, count.index)
-  availability_zone = element(var.azs, count.index)
+  count                   = length(var.public_subnet_cidrs)
+  vpc_id                  = var.vpc_id
+  cidr_block              = element(var.public_subnet_cidrs, count.index)
+  availability_zone       = element(var.azs, count.index)
   map_public_ip_on_launch = true
   tags = {
     Name = "public-subnet-${count.index + 1}"
@@ -19,9 +19,9 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private_app" {
-  count = length(var.application_subnet_cidrs)
-  vpc_id = var.vpc_id
-  cidr_block = element(var.application_subnet_cidrs, count.index)
+  count             = length(var.application_subnet_cidrs)
+  vpc_id            = var.vpc_id
+  cidr_block        = element(var.application_subnet_cidrs, count.index)
   availability_zone = element(var.azs, count.index)
   tags = {
     Name = "application-subnet-${count.index + 1}"
@@ -29,9 +29,9 @@ resource "aws_subnet" "private_app" {
 }
 
 resource "aws_subnet" "private_db" {
-  count = length(var.database_subnet_cidrs)
-  vpc_id = var.vpc_id
-  cidr_block = element(var.database_subnet_cidrs, count.index)
+  count             = length(var.database_subnet_cidrs)
+  vpc_id            = var.vpc_id
+  cidr_block        = element(var.database_subnet_cidrs, count.index)
   availability_zone = element(var.azs, count.index)
   tags = {
     Name = "database-subnet-${count.index + 1}"
